@@ -20,7 +20,7 @@ public class Controller {
         if (instance == null){
             instance = new Controller();
 
-        }else
+        }
             return instance;
 
     }
