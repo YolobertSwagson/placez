@@ -74,4 +74,16 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="info">Placez Copyright by Albert Hilderberg, Mark Kastner Verteilte Systeme HS Osnabrück</string>
+<<<<<<< HEAD
+=======
+
+    <string name="placeholderName">Place Name</string>
+    <string name="placeholderDescription">Place Description</string>
+    <string name="placez">Placez</string>
+    <string name="name">Name</string>
+    <string name="description">Beschreibung</string>
+    <string name="address">Adresse</string>
+    <string name="hintAddress">Adresse oder GeoKoordinaten eingeben</string>
+
+>>>>>>> bdb2b6ea1876db95932397d033b427edaf688423
 </resources>

@@ -13,7 +13,18 @@
     tools:showIn="@layout/app_bar_home">
 
     <TextView
+        android:id="@+id/PlacesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/placez"
+        android:textSize="24sp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="2dp"
+        android:layout_below="@id/PlacesText"
+        android:id="@+id/PlaceList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
