@@ -27,9 +27,9 @@ public class Controller {
 
     public void writeToJSON(){}
     public void readFromJSON(){}
-    public boolean addPlaceFromGeoLoc(String name, String description, GeoLocation coords , String picture, int category, int id){
-        return true;
-    }
+   // public boolean addPlaceFromGeoLoc(String name, String description, GeoLocation coords , String picture, int category, int id){
+    //    return true;
+   // }
 
     public boolean addPlaceFromAddress(String name, String description, String address , String picture, int category, int id){
         return true;
