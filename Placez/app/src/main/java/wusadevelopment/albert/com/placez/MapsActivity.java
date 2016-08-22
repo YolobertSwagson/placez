@@ -23,6 +23,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double longitude = 0.0;
     public static double latitude = 0.0;
     public static Marker currentPositionMarker;
+    boolean locationpermissionGranted = false;
+    boolean storagepermissionGranted = false;
+    private LocationService ls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +36,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
             if (!checkIfAlreadyhaveLocationPermission()) {
                 requestForLocationPermission();
+            }else{
+                locationpermissionGranted = true;
             }
             if (!checkIfAlreadyhaveStoragePermission()) {
                 requestForStoragePermission();
+            }else{
+                storagepermissionGranted = true;
             }
         }
+        if(locationpermissionGranted && storagepermissionGranted) {
+            ls = new LocationService(this);
+            this.longitude = ls.getLongitude();
+            this.latitude = ls.getLatitude();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
     }
 
     private boolean checkIfAlreadyhaveLocationPermission() {
@@ -75,18 +87,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 101:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //granted
                     LocationService ls = new LocationService(this);
                     this.longitude = ls.getLongitude();
                     this.latitude = ls.getLatitude();
+                    locationpermissionGranted = true;
                 } else {
                     //not granted
                     Toast.makeText(this, R.string.locationWarning, Toast.LENGTH_LONG).show();
                 }
                 break;
             case 102:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    storagepermissionGranted = true;
                 } else {
                     //not granted
                     Toast.makeText(this, R.string.storageWarning, Toast.LENGTH_LONG).show();
