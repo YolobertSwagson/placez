@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/AddPlaceName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:textSize="20sp"
         android:layout_marginBottom="3dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_below="@id/AddPlaceEditName"
         android:textSize="20sp"
         android:layout_marginBottom="3dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -69,7 +69,7 @@
         android:textSize="20sp"
         android:layout_below="@id/AddPlaceAddressLayout"
         android:layout_marginBottom="3dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
@@ -81,5 +81,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/AddPlaceCategory"
+        android:text="@string/category"
+        android:textSize="20sp"
+        android:layout_below="@id/AddPlaceEditDescription"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
+    <Spinner
+        android:id="@+id/AddPlaceSpinner"
+        android:layout_below="@id/AddPlaceCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </Spinner>
+
+    <ImageButton
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/AddPlaceConfirmBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:background="@color/transparent"
+        android:layout_below="@id/AddPlaceSpinner"
+        android:layout_alignParentLeft="true"/>
+
+    <ImageButton
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/AddPlaceSpinner"
+        android:layout_alignParentRight="true"
+        android:id="@+id/AddPlaceCancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_cancel_black_24dp"
+        android:layout_marginRight="15dp"/>
 </RelativeLayout>
