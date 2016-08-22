@@ -23,78 +23,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double longitude = 0.0;
     public static double latitude = 0.0;
     public static Marker currentPositionMarker;
+    private LocationService ls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        int MyVersion = Build.VERSION.SDK_INT;
-        if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            if (!checkIfAlreadyhaveLocationPermission()) {
-                requestForLocationPermission();
-            }
-            if (!checkIfAlreadyhaveStoragePermission()) {
-                requestForStoragePermission();
-            }
-        }
+        ls = new LocationService(this);
+        this.longitude = ls.getLongitude();
+        this.latitude = ls.getLatitude();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
-
-    private boolean checkIfAlreadyhaveLocationPermission() {
-        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void requestForLocationPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-    }
-
-    private boolean checkIfAlreadyhaveStoragePermission() {
-        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void requestForStoragePermission() {
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 102);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 101:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //granted
-                    LocationService ls = new LocationService(this);
-                    this.longitude = ls.getLongitude();
-                    this.latitude = ls.getLatitude();
-                } else {
-                    //not granted
-                    Toast.makeText(this, R.string.locationWarning, Toast.LENGTH_LONG).show();
-                }
-                break;
-            case 102:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    //not granted
-                    Toast.makeText(this, R.string.storageWarning, Toast.LENGTH_LONG).show();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     @Override

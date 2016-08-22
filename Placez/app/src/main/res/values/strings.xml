@@ -4,10 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="locationWarning">Please allow location in the settings.</string>
-    <string name="storageWarning">Without access to the memory, entries can\'t be saved.</string>
-    <string name="setLocationText">Please enable location and restart the app</string>
-    <string name="currentPositionText">Your position</string>
+
+    <string name="locationWarning">Ohne Standort funktioniert diese App nicht. Bitte in den Einstellungen Standort zulassen.</string>
+    <string name="storageWarning">Ohne auf den Speicher zugreifen zu können, können keine Einträge gespeichert werden.</string>
+    <string name="currentPositionText">Deine Position</string>
+    <string name="setLocationText">Bitte Standort aktivieren und App neustarten</string>
 
     <string name="action_settings">Settings</string>
     <string name="map">Map</string>
