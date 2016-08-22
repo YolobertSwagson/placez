@@ -83,6 +83,7 @@
     <string name="address">Adresse</string>
     <string name="hintAddress">Adresse oder GeoKoordinaten eingeben</string>
     <string name="category">Kategorie</string>
+    <string name="picture">Bild</string>
 
     <string-array name="categories">
         <item>Place</item>

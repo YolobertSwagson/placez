@@ -63,29 +63,12 @@
             android:layout_weight=".15"
             android:layout_toRightOf="@id/AddPlaceEditAddress"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/AddPlaceDescription"
-        android:text="@string/description"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceAddressLayout"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/AddPlaceEditDescription"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceDescription"
-        android:hint="@string/description"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/AddPlaceCategory"
         android:text="@string/category"
         android:textSize="20sp"
-        android:layout_below="@id/AddPlaceEditDescription"
+        android:layout_below="@id/AddPlaceAddressLayout"
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -99,24 +82,79 @@
 
     </Spinner>
 
+
+    <TextView
+        android:id="@+id/AddPlacePicture"
+        android:text="@string/picture"
+        android:textSize="20sp"
+        android:layout_below="@id/AddPlaceSpinner"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/AddPlaceAddPictureGalleryBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:background="@color/transparent"
+        android:scaleType="fitXY"
+        android:layout_below="@id/AddPlacePicture"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_insert_photo_black_24dp"/>
+
+    <ImageButton
+        android:id="@+id/AddPlaceAddPictureTakePictureBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@color/transparent"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitXY"
+        android:layout_below="@id/AddPlacePicture"
+        android:src="@drawable/ic_add_a_photo_black_24dp"/>
+
+    <TextView
+        android:id="@+id/AddPlaceDescription"
+        android:text="@string/description"
+        android:textSize="20sp"
+        android:layout_below="@id/AddPlaceAddPictureGalleryBtn"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/AddPlaceEditDescription"
+        android:textSize="20sp"
+        android:layout_below="@id/AddPlaceDescription"
+        android:hint="@string/description"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
     <ImageButton
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:id="@+id/AddPlaceConfirmBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:src="@drawable/ic_check_circle_black_24dp"
         android:background="@color/transparent"
-        android:layout_below="@id/AddPlaceSpinner"
+        android:layout_below="@id/AddPlaceEditDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
         android:layout_alignParentLeft="true"/>
 
     <ImageButton
         android:layout_marginTop="10dp"
-        android:layout_below="@id/AddPlaceSpinner"
+        android:layout_below="@id/AddPlaceEditDescription"
         android:layout_alignParentRight="true"
         android:id="@+id/AddPlaceCancelBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
         android:background="@color/transparent"
         android:src="@drawable/ic_cancel_black_24dp"
         android:layout_marginRight="15dp"/>
