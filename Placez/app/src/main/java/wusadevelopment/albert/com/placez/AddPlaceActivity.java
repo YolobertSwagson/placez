@@ -123,6 +123,8 @@ public class AddPlaceActivity extends AppCompatActivity {
                     + "/tmp_img.jpg";
 
             Bitmap thumbnail = BitmapFactory.decodeFile(filePath);
+            File file = new File(filePath);
+            file.delete();
             AddPlaceImagePreview.setImageBitmap(thumbnail);
             AddPlaceImagePreview.setVisibility(View.VISIBLE);
 
