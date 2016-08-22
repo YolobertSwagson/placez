@@ -73,7 +73,7 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="info">Placez Copyright by Albert Hilderberg, Mark Kastner Verteilte Systeme HS Osnabrück</string>
+    <string name="info">Placez Copyright by Albert Hilderberg, Mark Kastner Mobile Application Development HS Osnabrück</string>
 
     <string name="placeholderName">Place Name</string>
     <string name="placeholderDescription">Place Description</string>
@@ -82,5 +82,16 @@
     <string name="description">Beschreibung</string>
     <string name="address">Adresse</string>
     <string name="hintAddress">Adresse oder GeoKoordinaten eingeben</string>
+    <string name="category">Kategorie</string>
+
+    <string-array name="categories">
+        <item>Place</item>
+        <item>Bank</item>
+        <item>Restaurant</item>
+        <item>Parkplatz</item>
+        <item>Freizeit</item>
+        <item>Gegenstand</item>
+    </string-array>
+
 
 </resources>

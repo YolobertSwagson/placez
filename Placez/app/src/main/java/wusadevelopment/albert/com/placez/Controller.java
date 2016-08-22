@@ -1,5 +1,6 @@
 package wusadevelopment.albert.com.placez;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import wusadevelopment.albert.com.placez.Place;
 public class Controller {
 
     private static Controller instance = null;
-    private List<Place> placeList;
+    private List<Place> placeList = new ArrayList<>();
 
 
     protected Controller(){
