@@ -1,12 +1,14 @@
 package wusadevelopment.albert.com.placez;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Albert on 21.08.2016.
  */
 public class Place {
     private String name;
     private String description;
-    //private GeoLocation coors;
+    private LatLng coords;
     private String address;
     private String picture;
     private int category;
@@ -58,5 +60,13 @@ public class Place {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public void setCoords(LatLng coords) {
+        this.coords = coords;
+    }
+
+    public LatLng getCoords() {
+        return coords;
     }
 }
