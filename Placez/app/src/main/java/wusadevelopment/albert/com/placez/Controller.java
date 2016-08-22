@@ -1,6 +1,8 @@
 package wusadevelopment.albert.com.placez;
 
 import java.util.HashMap;
+import java.util.List;
+
 import wusadevelopment.albert.com.placez.Place;
 
 /**
@@ -9,7 +11,7 @@ import wusadevelopment.albert.com.placez.Place;
 public class Controller {
 
     private static Controller instance = null;
-    private HashMap placeList;
+    private List<Place> placeList;
 
 
     protected Controller(){
@@ -35,7 +37,7 @@ public class Controller {
         return true;
     }
 
-    public HashMap getPlaceList(){
+    public List<Place> getPlaceList(){
         return this.placeList;
     }
 

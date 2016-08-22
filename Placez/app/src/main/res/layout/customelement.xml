@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_marginBottom="2dp"
+    android:layout_height="54dp"
+    android:clickable="true"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/PlaceImage"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:src="@drawable/ic_place_black_24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/PlaceName"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_toRightOf="@id/PlaceImage"
+        android:maxLines="1"
+        android:text="@string/placeholderName" />
+
+    <TextView
+        android:id="@+id/PlaceDescription"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholderDescription"
+        android:layout_toRightOf="@id/PlaceImage"
+        android:layout_below="@id/PlaceName"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
