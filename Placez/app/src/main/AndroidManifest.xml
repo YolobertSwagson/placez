@@ -29,10 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-=======
-
->>>>>>> bdb2b6ea1876db95932397d033b427edaf688423
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -52,15 +48,9 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-<<<<<<< HEAD
         <activity android:name=".InfoActivity"></activity>
-=======
-
-        <activity android:name=".InfoActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".AddPlaceActivity"></activity>
-
->>>>>>> bdb2b6ea1876db95932397d033b427edaf688423
     </application>
 
 </manifest>
