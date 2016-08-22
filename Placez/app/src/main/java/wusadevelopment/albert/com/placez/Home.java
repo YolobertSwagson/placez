@@ -117,10 +117,10 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_addPlace) {
             // Handle the camera action
         } else if (id == R.id.nav_map) {
-
-        } else if (id == R.id.nav_settings) {
             Intent mapsIntent = new Intent(this, MapsActivity.class);
             startActivity(mapsIntent);
+        } else if (id == R.id.nav_settings) {
+
         } else if (id == R.id.nav_info) {
 
         }

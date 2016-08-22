@@ -1,161 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="wusadevelopment.albert.com.placez.AddPlaceActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    xmlns:android="http://schemas.android.com/apk/res/android" />
 
-    <TextView
-        android:id="@+id/AddPlaceName"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:textSize="20sp"
-        android:layout_marginBottom="3dp"
-        android:layout_height="wrap_content"
-        android:text="@string/name"/>
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="wusadevelopment.albert.com.placez.AddPlaceActivity">
 
-    <EditText
-        android:id="@+id/AddPlaceEditName"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceName"
-        android:layout_marginBottom="3dp"
-        android:hint="@string/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/AddPlaceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="@string/name"
+            android:textSize="20sp" />
 
-    <TextView
+        <EditText
+            android:id="@+id/AddPlaceEditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceName"
+            android:layout_marginBottom="3dp"
+            android:hint="@string/name"
+            android:textSize="20sp" />
 
-        android:id="@+id/AddPlaceAddress"
-        android:text="@string/address"
-        android:layout_below="@id/AddPlaceEditName"
-        android:textSize="20sp"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/AddPlaceAddress"
-        android:id="@+id/AddPlaceAddressLayout"
-        android:orientation="horizontal">
+            android:id="@+id/AddPlaceAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceEditName"
+            android:layout_marginBottom="3dp"
+            android:text="@string/address"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/AddPlaceEditAddress"
-        android:textSize="20sp"
-        android:lines="2"
-        android:hint="@string/hintAddress"
-        android:layout_marginBottom="3dp"
-        android:layout_width="0dp"
-        android:layout_weight=".85"
-        android:layout_height="wrap_content"
-        />
+        <LinearLayout
+            android:id="@+id/AddPlaceAddressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceAddress"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/AddPlaceEditAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".85"
+                android:hint="@string/hintAddress"
+                android:lines="2"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/AddPlaceMyLocationBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/AddPlaceEditAddress"
+                android:layout_weight=".15"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_my_location_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/AddPlaceCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceAddressLayout"
+            android:layout_marginBottom="3dp"
+            android:text="@string/category"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/AddPlaceSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceCategory">
+
+
+        </Spinner>
+
+
+        <TextView
+            android:id="@+id/AddPlacePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceSpinner"
+            android:layout_marginBottom="3dp"
+            android:text="@string/picture"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/AddPlaceImagePreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="false"
+            android:layout_below="@+id/AddPlacePicture"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
 
         <ImageButton
-            android:id="@+id/AddPlaceMyLocationBtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_my_location_black_24dp"
+            android:id="@+id/AddPlaceAddPictureGalleryBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/AddPlaceImagePreview"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
             android:background="@color/transparent"
-            android:layout_weight=".15"
-            android:layout_toRightOf="@id/AddPlaceEditAddress"/>
-    </LinearLayout>
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_insert_photo_black_24dp" />
 
-    <TextView
-        android:id="@+id/AddPlaceCategory"
-        android:text="@string/category"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceAddressLayout"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/AddPlaceAddPictureTakePictureBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/AddPlaceImagePreview"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_add_a_photo_black_24dp" />
 
-    <Spinner
-        android:id="@+id/AddPlaceSpinner"
-        android:layout_below="@id/AddPlaceCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/AddPlaceDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceAddPictureGalleryBtn"
+            android:layout_marginBottom="3dp"
+            android:text="@string/description"
+            android:textSize="20sp" />
 
-
-    </Spinner>
-
-
-    <TextView
-        android:id="@+id/AddPlacePicture"
-        android:text="@string/picture"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceSpinner"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ImageButton
-        android:id="@+id/AddPlaceAddPictureGalleryBtn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="20dp"
-        android:layout_alignParentLeft="true"
-        android:background="@color/transparent"
-        android:scaleType="fitXY"
-        android:layout_below="@id/AddPlacePicture"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/ic_insert_photo_black_24dp"/>
-
-    <ImageButton
-        android:id="@+id/AddPlaceAddPictureTakePictureBtn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:background="@color/transparent"
-        android:layout_marginBottom="5dp"
-        android:scaleType="fitXY"
-        android:layout_below="@id/AddPlacePicture"
-        android:src="@drawable/ic_add_a_photo_black_24dp"/>
-
-    <TextView
-        android:id="@+id/AddPlaceDescription"
-        android:text="@string/description"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceAddPictureGalleryBtn"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/AddPlaceEditDescription"
-        android:textSize="20sp"
-        android:layout_below="@id/AddPlaceDescription"
-        android:hint="@string/description"
-        android:layout_marginBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/AddPlaceEditDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddPlaceDescription"
+            android:layout_marginBottom="3dp"
+            android:hint="@string/description"
+            android:textSize="20sp" />
 
 
-    <ImageButton
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:id="@+id/AddPlaceConfirmBtn"
-        android:src="@drawable/ic_check_circle_black_24dp"
-        android:background="@color/transparent"
-        android:layout_below="@id/AddPlaceEditDescription"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        android:layout_alignParentLeft="true"/>
+        <ImageButton
+            android:id="@+id/AddPlaceConfirmBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/AddPlaceEditDescription"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_check_circle_black_24dp" />
 
-    <ImageButton
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/AddPlaceEditDescription"
-        android:layout_alignParentRight="true"
-        android:id="@+id/AddPlaceCancelBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        android:background="@color/transparent"
-        android:src="@drawable/ic_cancel_black_24dp"
-        android:layout_marginRight="15dp"/>
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/AddPlaceCancelBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/AddPlaceEditDescription"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_cancel_black_24dp" />
+
+    </RelativeLayout>
+</ScrollView>
