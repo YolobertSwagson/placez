@@ -1,8 +1,10 @@
 package wusadevelopment.albert.com.placez;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -125,12 +127,24 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_addPlace) {
             // Handle the camera action
         } else if (id == R.id.nav_map) {
-            Intent mapsIntent = new Intent(this, MapsActivity.class);
-            startActivity(mapsIntent);
+
+            LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+            // Get GPS and network status
+            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if(!isNetworkEnabled && !isGPSEnabled){
+                Toast.makeText(this, "GPS vorher aktivieren!", Toast.LENGTH_LONG).show();
+            }else{
+                Intent mapsIntent = new Intent(this, MapsActivity.class);
+                startActivity(mapsIntent);
+            }
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_info) {
-
+            Intent infoIntent = new Intent(this, InfoActivity.class);
+            startActivity(infoIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

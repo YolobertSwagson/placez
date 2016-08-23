@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Placez</string>
+    <string name="byUs">Von Albert Hildenberg und Mark Kastner</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -74,7 +75,8 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="info">Placez Copyright by Albert Hilderberg, Mark Kastner Mobile Application Development HS Osnabrück</string>
+    <string name="info">Placez Copyright by Albert Hilderberg, Mark Kastner \n\nEntstanden im Rahmen der Mobile Application Development
+        Veranstaltung der HS Osnabrück</string>
 
     <string name="placeholderName">Place Name</string>
     <string name="placeholderDescription">Place Description</string>

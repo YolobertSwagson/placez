@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+
+    <ImageView
+        android:id="@+id/markerImage"
+        android:layout_height="80dp"
+        android:layout_width="80dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_place_black_24dp"/>
+    <TextView
+        android:id="@+id/markerName"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/markerImage"
+        android:maxLines="1"
+        android:text="@string/placeholderName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:id="@+id/markerAddress"
+        android:layout_toRightOf="@id/markerImage"
+        android:layout_below="@id/markerName"/>
+
+    <TextView
+        android:id="@+id/markerDescription"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholderDescription"
+        android:layout_toRightOf="@id/markerImage"
+        android:layout_below="@id/markerAddress"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
