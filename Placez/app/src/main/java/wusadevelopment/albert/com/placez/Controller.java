@@ -96,14 +96,14 @@ public class Controller {
     }
 
     public boolean editPlace(String name, String description,String address, double lat, double lng , String picture, int category, int position){
-        Place tmp = placeList.get(position);
-        tmp.setName(name);
-        tmp.setDescription(description);
-        tmp.setAddress(address);
-        tmp.setLat(lat);
-        tmp.setLng(lng);
-        tmp.setPicture(picture);
-        tmp.setCategory(category);
+        
+        placeList.get(position).setName(name);
+        placeList.get(position).setDescription(description);
+        placeList.get(position).setAddress(address);
+        placeList.get(position).setLat(lat);
+        placeList.get(position).setLng(lng);
+        placeList.get(position).setPicture(picture);
+        placeList.get(position).setCategory(category);
         return writeToJSON();
     }
 
