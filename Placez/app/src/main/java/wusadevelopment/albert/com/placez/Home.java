@@ -1,6 +1,7 @@
 package wusadevelopment.albert.com.placez;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,10 +25,13 @@ import java.util.List;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,CustomAdapter.ClickListener  {
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     private RecyclerView recyclerView;
     private List<Place> pList;
     private Controller instance;
+    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,15 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
+
+        this.id = pref.getInt("id", 0);
+
+        //TODO folgenden Code beim erstellen eines Places einfügen
+        //editor.putInt("id", this.id);
+        //editor.commit();
 
         int MyVersion = Build.VERSION.SDK_INT;
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
@@ -122,10 +135,10 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_addPlace) {
             // Handle the camera action
         } else if (id == R.id.nav_map) {
-
-        } else if (id == R.id.nav_settings) {
             Intent mapsIntent = new Intent(this, MapsActivity.class);
             startActivity(mapsIntent);
+        } else if (id == R.id.nav_settings) {
+
         } else if (id == R.id.nav_info) {
 
         }
