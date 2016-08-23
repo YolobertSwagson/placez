@@ -46,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -96,7 +97,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
         Spinner spinner = (Spinner) findViewById(R.id.AddPlaceSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.categories, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -116,11 +117,11 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                     String address = addAddress.getText().toString();
                     String description = addDescription.getText().toString();
 
-                    String[] latlng = address.split(",");
-                    if(latlng[0] != null && latlng[1] != null){
+                    List<String> items = Arrays.asList(address.split("\\s*,\\s*"));
+                    if(items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")){
                         try{
-                            double latitude = Double.parseDouble(latlng[0]);
-                            double longitude = Double.parseDouble(latlng[1]);
+                            double latitude = Double.parseDouble(items.get(0));
+                            double longitude = Double.parseDouble(items.get(1));
                             coords = new LatLng(latitude, longitude);
                         }catch (NumberFormatException e){
                             System.out.println("ILLEGAL NUMBER FORMAT");
@@ -140,8 +141,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                         if(Controller.getInstance(getApplicationContext()).addPlace(name,description,formatted_address,coords.latitude,coords.longitude,"abc",1,1)){
-                             System.out.println("ORT ERSTELLT!!!");
+                         if(Controller.getInstance(getApplicationContext()).addPlace(name,description,formatted_address,coords.latitude,coords.longitude,"abc",category,1)){
+                             System.out.println("ORT ERSTELLT!!! mit Koordinaten");
                          }
                         /*try {
                             result =getAddress(latitude,longitude);
@@ -159,12 +160,12 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                 e.printStackTrace();
                             }
                         }*/
-                    }else {
+                    }else if(items.size() >= 2) {
                         try {
-                            List<Address> adressList = geocoder.getFromLocationName(address,1);
+                            List<Address> adressList = geocoder.getFromLocationName(address,2);
                             coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
-                            if(Controller.getInstance(getApplicationContext()).addPlace(name,description,address,coords.latitude,coords.longitude,"abc",1,1)){
-                                System.out.println("ORT ERSTELLT!!!");
+                            if(Controller.getInstance(getApplicationContext()).addPlace(name,description,address,coords.latitude,coords.longitude,"abc",category,1)){
+                                System.out.println("ORT ERSTELLT!!! mit Adresse");
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -212,7 +213,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        //do nothing
+        int category = 1;
     }
 
     protected void pickImage(){
