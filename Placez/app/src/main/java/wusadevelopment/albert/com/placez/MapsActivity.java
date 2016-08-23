@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Controller controller = Controller.getInstance(this);
         controller.readFromJSON();
         places = controller.getPlaceList();
-        for (Place tmp : controller.getPlaceList()) {
+        for (Place tmp : places) {
             current = tmp;
             addGoogleMapsMarker(tmp);
         }
