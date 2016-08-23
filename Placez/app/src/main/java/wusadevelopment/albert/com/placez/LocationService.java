@@ -27,6 +27,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by markk on 15.07.2016.
  */
@@ -101,9 +104,9 @@ public class LocationService implements LocationListener {
             if (!isNetworkEnabled && !isGPSEnabled) {
                 // cannot get location
                 this.locationServiceAvailable = false;
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                dialog.setMessage(context.getResources().getString(R.string.setLocationText));
-                dialog.show();
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setMessage(context.getResources().getString(R.string.setLocationText));
+                    dialog.show();
             }
             //else
             {
