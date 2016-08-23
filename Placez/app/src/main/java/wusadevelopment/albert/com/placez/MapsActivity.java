@@ -28,14 +28,16 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     public static GoogleMap mMap;
     public static double longitude = 0.0;
     public static double latitude = 0.0;
     public static Marker currentPositionMarker;
-    private List<Marker> markers = new ArrayList<>();
+    private Map<Integer, Marker> markers = new HashMap<>();
     private LocationService ls;
 
     private Place current;
@@ -73,21 +75,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            double lat = extras.getDouble("lat");
-            double lng = extras.getDouble("lng");
-            for (Marker tmpMarker : markers){
-                if(tmpMarker.getPosition().latitude == lat && tmpMarker.getPosition().longitude == lng){
-                    MapsActivity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
-                    tmpMarker.showInfoWindow();
-                    mMap.click
-                }
-            }
+            Marker tmpMarker = markers.get(extras.getInt("id"));
+            MapsActivity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(tmpMarker.getPosition().latitude,
+                    tmpMarker.getPosition().longitude), 16));
+            tmpMarker.showInfoWindow();
         }
     }
 
     public void addGoogleMapsMarker(Place place) {
-        Marker newMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())));
-        markers.add(newMarker);
+        Marker newMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(place.getLat(), place.getLng()))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        markers.put(place.getId(), newMarker);
     }
 
     public static Bitmap decodeBase64(String input) {

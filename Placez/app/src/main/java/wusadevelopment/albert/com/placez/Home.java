@@ -141,7 +141,8 @@ public class Home extends AppCompatActivity
                 startActivity(mapsIntent);
             }
         } else if (id == R.id.nav_settings) {
-
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
         } else if (id == R.id.nav_info) {
             Intent infoIntent = new Intent(this, InfoActivity.class);
             startActivity(infoIntent);

@@ -190,11 +190,10 @@ public class LocationService implements LocationListener {
     public void onLocationChanged(Location location) {
         SharedPreferences sp = context.getSharedPreferences("MapsInfo", context.MODE_PRIVATE);
         if (sp.getBoolean("active", false) && !MapsActivity.mMap.equals(null)) {
-            MapsActivity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
             MapsActivity.latitude = location.getLatitude();
             MapsActivity.longitude = location.getLongitude();
             MapsActivity.currentPositionMarker.remove();
-            MapsActivity.currentPositionMarker = MapsActivity.mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title(String.valueOf(R.string.currentPositionText)));
+            MapsActivity.currentPositionMarker = MapsActivity.mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title(context.getString(R.string.currentPositionText)));
         }
     }
 

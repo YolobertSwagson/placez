@@ -65,8 +65,7 @@ public class DetailsActivity extends Fragment {
                     Toast.makeText(getContext(), "GPS vorher aktivieren!", Toast.LENGTH_LONG).show();
                 }else{
                     Intent mapsIntent = new Intent(getContext(), MapsActivity.class);
-                    mapsIntent.putExtra("lat", place.getLat());
-                    mapsIntent.putExtra("lng", place.getLng());
+                    mapsIntent.putExtra("id", place.getId());
                     startActivity(mapsIntent);
                 }
             }
