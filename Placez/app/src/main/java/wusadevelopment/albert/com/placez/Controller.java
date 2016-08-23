@@ -96,7 +96,7 @@ public class Controller {
     }
 
     public boolean editPlace(String name, String description,String address, double lat, double lng , String picture, int category, int position){
-        
+
         placeList.get(position).setName(name);
         placeList.get(position).setDescription(description);
         placeList.get(position).setAddress(address);
