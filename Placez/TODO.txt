@@ -1,0 +1,28 @@
+TODO:
+
+AddPlaceActivity: 
+-Button getCurrentPositionLngLat <--- aktuelle Standortdaten holen.
+-Adresse Editfeld <---- Anpassen, was alles eingegeben werden kann und passende Abfragen dazu. Derzeit nur ein String mit mindestens einem komma.
+-Bild String mit übergeben bei AddPlace. Derzeit nur Platzhalter.
+-ID hochzählen und übergeben bei AddPlace. Derzeit nur Platzhalter.
+-Design Anpassen
+
+Home: Bilder anzeigen in Home!
+Design anpassen von den ListElementen.
+
+Map:
+-Zeige alle gespeicherten Places, beim öffnen der Karte
+-Marker onclick -> Zeige infos zum Place.
+
+
+-DetailsFragment - Home
+-Bei Klick auf ListenElement zeige Details des Places.
+-Navigation zum Place
+-Delete des Place
+-Edit des Place.
+
+Settings: User Name
+-Lösche Json (einzeiler);
+
+Allgemein: Toasts ausgeben, wenn was nicht klappt/ geklappt hat.
+Hints geben, wenn was falsches eingegeben wurde.
