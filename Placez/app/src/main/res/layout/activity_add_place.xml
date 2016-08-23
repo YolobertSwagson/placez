@@ -15,38 +15,20 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="wusadevelopment.albert.com.placez.AddPlaceActivity">
 
-        <TextView
-            android:id="@+id/AddPlaceName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:text="@string/name"
-            android:textSize="20sp" />
-
         <EditText
             android:id="@+id/AddPlaceEditName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceName"
             android:layout_marginBottom="3dp"
             android:hint="@string/name"
             android:textSize="20sp" />
 
-        <TextView
-
-            android:id="@+id/AddPlaceAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceEditName"
-            android:layout_marginBottom="3dp"
-            android:text="@string/address"
-            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/AddPlaceAddressLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceAddress"
+            android:layout_below="@id/AddPlaceEditName"
             android:orientation="horizontal">
 
             <EditText
@@ -131,20 +113,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_add_a_photo_black_24dp" />
 
-        <TextView
-            android:id="@+id/AddPlaceDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceAddPictureGalleryBtn"
-            android:layout_marginBottom="3dp"
-            android:text="@string/description"
-            android:textSize="20sp" />
-
         <EditText
             android:id="@+id/AddPlaceEditDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceDescription"
+            android:layout_below="@id/AddPlaceAddPictureGalleryBtn"
             android:layout_marginBottom="3dp"
             android:hint="@string/description"
             android:textSize="20sp" />

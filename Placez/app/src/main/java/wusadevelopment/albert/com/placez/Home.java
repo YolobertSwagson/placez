@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,6 +80,7 @@ public class Home extends AppCompatActivity
                 requestForStoragePermission();
             }
         }
+
     }
 
     @Override
@@ -187,10 +189,15 @@ public class Home extends AppCompatActivity
 
     @Override
     public void itemClicked(View view, int position) {
-        Place clicked = pList.get(position);
-        Intent intent = new Intent(getApplicationContext(),DetailsActivity.class);
-        intent.putExtra("itemID", clicked.getId() );
-        startActivity(intent);
+        DetailsActivity fragment = new DetailsActivity();
+        Bundle arguments= new Bundle();
+        arguments.putInt("clicked_value",position);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
     }
 
 }

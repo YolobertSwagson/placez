@@ -171,5 +171,6 @@ public class LocationService implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+
     }
 }

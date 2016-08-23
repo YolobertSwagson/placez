@@ -24,12 +24,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private List<Place> data;
     private Context context;
     private ClickListener cListener;
+    private Controller instance;
 
     public CustomAdapter(Context context, List<Place> data){
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.data=data;
+        this.instance = Controller.getInstance(context);
 
     }
 
@@ -49,7 +51,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.placeName.setText(current.getName());
         holder.placeDescription.setText(current.getDescription());
         if(current.getPicture() != null) {
-            holder.placeImage.setImageBitmap(decodeBase64(current.getPicture()));
+            holder.placeImage.setImageBitmap(instance.decodeBase64(current.getPicture()));
         }
     }
 
@@ -91,8 +93,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.cListener = clickListener;
     }
 
-    public static Bitmap decodeBase64(String input) {
-        byte[] decodedBytes = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-    }
 }
