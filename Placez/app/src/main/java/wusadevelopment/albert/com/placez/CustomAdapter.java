@@ -1,7 +1,10 @@
 package wusadevelopment.albert.com.placez;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +48,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.placeName.setText(current.getName());
         holder.placeDescription.setText(current.getDescription());
-/*        if (current.getRapper1().getProfile_picture() != null){
-            Picasso.with(context).load(current.getRapper1().getProfile_picture()).resize(150,150).into(holder.imgRapper1);
-        }else{
-            holder.imgRapper1.setImageResource(R.drawable.default_profile_pic);
-        }*/
+        if(current.getPicture() != null) {
+            holder.placeImage.setImageBitmap(decodeBase64(current.getPicture()));
+        }
     }
 
     @Override
@@ -88,5 +89,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public void setClickListener(ClickListener clickListener){
         this.cListener = clickListener;
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

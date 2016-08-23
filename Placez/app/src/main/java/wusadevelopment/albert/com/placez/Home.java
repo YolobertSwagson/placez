@@ -25,13 +25,9 @@ import java.util.List;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,CustomAdapter.ClickListener  {
 
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-
     private RecyclerView recyclerView;
     private List<Place> pList;
     private Controller instance;
-    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +69,6 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        editor = pref.edit();
-
-        this.id = pref.getInt("id", 0);
-
-        //TODO folgenden Code beim erstellen eines Places einfügen
-        //editor.putInt("id", this.id);
-        //editor.commit();
 
         int MyVersion = Build.VERSION.SDK_INT;
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
