@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +26,8 @@ public class DetailsActivity extends Fragment {
     private Controller instance;
     private int position;
     private Place place;
-    private ImageButton navigateToBtn;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -51,7 +51,11 @@ public class DetailsActivity extends Fragment {
             image.setImageBitmap(instance.decodeBase64(place.getPicture()));
         }
 
-        navigateToBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsNavigateToBtn);
+        name.setText(place.getName());
+        address.setText(place.getAddress());
+        //category.setText(place.getCategory());
+        description.setText(place.getDescription());
+        ImageButton navigateToBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsNavigateToBtn);
         navigateToBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +75,27 @@ public class DetailsActivity extends Fragment {
             }
         });
 
-        name.setText(place.getName());
-        address.setText(place.getAddress());
-        //category.setText(place.getCategory());
-        description.setText(place.getDescription());
+        ImageButton editBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsEditBtn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddPlaceActivity.class);
+                intent.putExtra("position",place.getId());
+                startActivity(intent);
+            }
+        });
 
+        ImageButton delBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsDelBtn);
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WarningAlert warningAlert = new WarningAlert();
+                Bundle args = new Bundle();
+                args.putInt("id",place.getId());
+                warningAlert.setArguments(args);
+                warningAlert.show(getFragmentManager(),"warningAlert");
+              }
+        });
 
         return v;
     }
