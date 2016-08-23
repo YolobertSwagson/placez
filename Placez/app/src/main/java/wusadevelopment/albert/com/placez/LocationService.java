@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -67,7 +68,7 @@ public class LocationService implements LocationListener {
     /**
      * Local constructor
      */
-    public LocationService(Context context) {
+    private LocationService(Context context) {
 
         initLocationService(context);
     }
@@ -147,7 +148,8 @@ public class LocationService implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        if (!MapsActivity.mMap.equals(null)) {
+        SharedPreferences sp = context.getSharedPreferences("MapsInfo", context.MODE_PRIVATE);
+        if (sp.getBoolean("active", false) && !MapsActivity.mMap.equals(null)) {
             MapsActivity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
             MapsActivity.latitude = location.getLatitude();
             MapsActivity.longitude = location.getLongitude();

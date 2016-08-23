@@ -1,5 +1,6 @@
 package wusadevelopment.albert.com.placez;
 
+import android.content.SharedPreferences;
 import android.widget.ImageView;
 
 import android.content.Context;
@@ -16,8 +17,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.location.Address;
 import android.location.Geocoder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
@@ -40,6 +43,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.FileOutputStream;
@@ -53,8 +57,8 @@ import java.util.Scanner;
 public class AddPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private int category;
-    private String gLobalGoogleUrl="http://maps.googleapis.com/maps/api/geocode/json?address=";
-    private String key ="&key=AIzaSyAj0nKuNZu_FC9Y6uGW0uT7orQ1fBIzR6U";
+    private String gLobalGoogleUrl = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+    private String key = "&key=AIzaSyAj0nKuNZu_FC9Y6uGW0uT7orQ1fBIzR6U";
     private String formatted_address;
     private String plz;
     private String ort;
@@ -62,14 +66,22 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
     private LatLng coords;
     private Geocoder geocoder;
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
+    private int id = 0;
+
     private ImageButton AddPlaceAddPictureGalleryBtn;
     private ImageButton AddPlaceAddPictureTakePictureBtn;
+    private ImageButton AddPlaceMyLocationBtn;
 
     private ImageView AddPlaceImagePreview;
 
+    private EditText editAdress;
+
     private Uri picUri;
 
-    String encodedImage;
+    String encodedImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +90,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
         this.AddPlaceAddPictureGalleryBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureGalleryBtn);
         this.AddPlaceAddPictureTakePictureBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureTakePictureBtn);
+        this.AddPlaceMyLocationBtn = (ImageButton) findViewById(R.id.AddPlaceMyLocationBtn);
 
         this.AddPlaceAddPictureGalleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +106,20 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
+        this.AddPlaceMyLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentPosition();
+            }
+        });
+
         this.AddPlaceImagePreview = (ImageView) findViewById(R.id.AddPlaceImagePreview);
+        this.editAdress = (EditText) findViewById(R.id.AddPlaceEditAddress);
+
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
+
+        this.id = pref.getInt("id", 0);
 
         Spinner spinner = (Spinner) findViewById(R.id.AddPlaceSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -111,11 +137,11 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                 @Override
                 public void onClick(View v) {
                     EditText addName = (EditText) findViewById(R.id.AddPlaceEditName);
-                    EditText addAddress = (EditText) findViewById(R.id.AddPlaceEditAddress);
                     EditText addDescription = (EditText) findViewById(R.id.AddPlaceEditDescription);
                     String name = addName.getText().toString();
-                    String address = addAddress.getText().toString();
+                    String address = editAdress.getText().toString();
                     String description = addDescription.getText().toString();
+
 
                     List<String> items = Arrays.asList(address.split("\\s*,\\s*"));
                     if(items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")){
@@ -123,12 +149,12 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                             double latitude = Double.parseDouble(items.get(0));
                             double longitude = Double.parseDouble(items.get(1));
                             coords = new LatLng(latitude, longitude);
-                        }catch (NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             System.out.println("ILLEGAL NUMBER FORMAT");
                         }
 
                         try {
-                            if(coords != null) {
+                            if (coords != null) {
                                 List<Address> adressList = geocoder.getFromLocation(coords.latitude, coords.longitude, 1);
 
                                 if (adressList.get(0) != null) {
@@ -141,9 +167,13 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                         if(Controller.getInstance(getApplicationContext()).addPlace(name,description,formatted_address,coords.latitude,coords.longitude,"abc",category,1)){
+
+                         if(Controller.getInstance(getApplicationContext()).addPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
                              System.out.println("ORT ERSTELLT!!! mit Koordinaten");
+                             editor.putInt("id", ++id);
+                             editor.commit();
                          }
+
                         /*try {
                             result =getAddress(latitude,longitude);
                         } catch (Exception e) {
@@ -160,12 +190,16 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                 e.printStackTrace();
                             }
                         }*/
+
                     }else if(items.size() >= 2) {
                         try {
                             List<Address> adressList = geocoder.getFromLocationName(address,2);
                             coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
-                            if(Controller.getInstance(getApplicationContext()).addPlace(name,description,address,coords.latitude,coords.longitude,"abc",category,1)){
+                            if(Controller.getInstance(getApplicationContext()).addPlace(name,description,address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
                                 System.out.println("ORT ERSTELLT!!! mit Adresse");
+                                editor.putInt("id", ++id);
+                                editor.commit();
+
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -198,8 +232,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                     }
 
 
-
-                    Intent i = new Intent(getApplicationContext(),Home.class);
+                    Intent i = new Intent(getApplicationContext(), Home.class);
                     startActivity(i);
                 }
             });
@@ -216,7 +249,13 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         int category = 1;
     }
 
-    protected void pickImage(){
+    protected void getCurrentPosition(){
+        LocationService ls = LocationService.getLocationManager(this);
+        coords = new LatLng(ls.getLatitude(), ls.getLongitude());
+        this.editAdress.setText(coords.latitude + "," + coords.longitude);
+    }
+
+    protected void pickImage() {
         try {
             Intent cropIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
             cropIntent.setType("image/*");
@@ -239,21 +278,20 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
             startActivityForResult(cropIntent, 1);
 
-        }
-        catch (ActivityNotFoundException anfe) {
+        } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Your device doesn't support the crop action!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    protected void takePicture(){
+    protected void takePicture() {
         try {
             //use standard intent to capture an image
             Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             //we will handle the returned data in onActivityResult
             startActivityForResult(captureIntent, 2);
-        }catch(ActivityNotFoundException anfe){
+        } catch (ActivityNotFoundException anfe) {
             //display an error message
             String errorMessage = "Whoops - your device doesn't support capturing images!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
@@ -266,7 +304,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         if (resultCode != RESULT_OK) {
             return;
         }
-        if(requestCode == 1){
+        if (requestCode == 1) {
             String filePath = Environment.getExternalStorageDirectory()
                     + "/tmp_img.jpg";
 
@@ -276,17 +314,15 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
             AddPlaceImagePreview.setImageBitmap(thumbnail);
             AddPlaceImagePreview.setVisibility(View.VISIBLE);
 
-            //TODO Beispiel für Bitmap zu String und zurück (Muss beim anlegen, bzw. Anzeigen von Places benutzt werden.
-            //encodedImage = encodeToBase64(thumbnail, Bitmap.CompressFormat.JPEG, 100);
-            //Bitmap myBitmapAgain = decodeBase64(encodedImage);
+            encodedImage = encodeToBase64(thumbnail, Bitmap.CompressFormat.JPEG, 100);
 
-        }else if(requestCode == 2){
+        } else if (requestCode == 2) {
             picUri = data.getData();
             performCrop();
         }
     }
 
-    protected void performCrop(){
+    protected void performCrop() {
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(picUri, "image/*");
@@ -307,25 +343,16 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, tmpImageUri);
             startActivityForResult(cropIntent, 1);
-        }
-        catch(ActivityNotFoundException anfe){
+        } catch (ActivityNotFoundException anfe) {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
-    {
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
-
-    public static Bitmap decodeBase64(String input)
-    {
-        byte[] decodedBytes = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-    }
-
 }

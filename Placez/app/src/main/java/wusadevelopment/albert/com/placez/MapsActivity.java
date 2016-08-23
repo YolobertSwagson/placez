@@ -1,6 +1,7 @@
 package wusadevelopment.albert.com.placez;
 
 import android.*;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -18,7 +19,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     public static GoogleMap mMap;
     public static double longitude = 0.0;
     public static double latitude = 0.0;
@@ -30,7 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        ls = new LocationService(this);
+        ls = LocationService.getLocationManager(this);
         this.longitude = ls.getLongitude();
         this.latitude = ls.getLatitude();
 
@@ -50,5 +50,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void moveMapToPosition(LatLng position) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences sp = getSharedPreferences("MapsInfo", MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putBoolean("active", true);
+        ed.commit();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        SharedPreferences sp = getSharedPreferences("MapsInfo", MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putBoolean("active", false);
+        ed.commit();
     }
 }
