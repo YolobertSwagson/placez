@@ -2,10 +2,7 @@ package wusadevelopment.albert.com.placez;
 
 import android.content.SharedPreferences;
 import android.widget.ImageView;
-
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,54 +14,28 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.location.Address;
 import android.location.Geocoder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-
 import com.google.android.gms.maps.model.LatLng;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class AddPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private int category;
-    private String gLobalGoogleUrl = "http://maps.googleapis.com/maps/api/geocode/json?address=";
-    private String key = "&key=AIzaSyAj0nKuNZu_FC9Y6uGW0uT7orQ1fBIzR6U";
     private String formatted_address;
-    private String plz;
-    private String ort;
-    private String result;
     private LatLng coords;
     private Geocoder geocoder;
+    private int category;
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -174,23 +145,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                              editor.commit();
                          }
 
-                        /*try {
-                            result =getAddress(latitude,longitude);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }*/
-                        /*if (result != null) {
-                            try {
-                                JSONObject object = new JSONObject(result);
-                                String status = object.getString("status");
-                                System.out.println(status);
-                                formatted_address = object.getString("formatted_address");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
-
                     }else if(items.size() >= 2) {
                         try {
                             List<Address> adressList = geocoder.getFromLocationName(address,2);
@@ -204,31 +158,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                       /* //String newAddress = address.replace(" ","+");
-                        try {
-                            result = getLatLng(newAddress);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }*/
-                       /* if(result != null){
-                            try {
-                                JSONObject object = new JSONObject(result);
-                                String status = object.getString("status");
-                                System.out.println(status);
-                                JSONObject location = object.getJSONObject("location");
-                                double lng = location.getDouble("location.lng");
-                                double lat = location.getDouble("location.lat");
-                                coords = new LatLng(lng,lat);
-                                formatted_address = object.getString("formatted_address");
-                                Controller.getInstance().addPlace(name,description,address,coords,"abc",1,1);
-
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
-
                     }
 
 
@@ -241,16 +170,17 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int category = position;
+        category = position;
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        int category = 1;
+        category = 1;
     }
 
     protected void getCurrentPosition(){
         LocationService ls = LocationService.getLocationManager(this);
+        ls.initLocationService(this);
         coords = new LatLng(ls.getLatitude(), ls.getLongitude());
         this.editAdress.setText(coords.latitude + "," + coords.longitude);
     }

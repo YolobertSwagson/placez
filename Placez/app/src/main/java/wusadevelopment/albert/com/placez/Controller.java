@@ -1,7 +1,10 @@
 package wusadevelopment.albert.com.placez;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -103,5 +106,10 @@ public class Controller {
 
     public boolean removePlace(int id){
         return true;
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

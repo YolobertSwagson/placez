@@ -9,4 +9,79 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="wusadevelopment.albert.com.placez.DetailsActivity">
 
+    <ImageView android:id="@+id/PlaceDetailsImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_place_black_24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView android:id="@+id/PlaceDetailsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@id/PlaceDetailsImage"
+        android:text="@string/name"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView android:id="@+id/PlaceDetailsAddress"
+        android:layout_below="@id/PlaceDetailsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/address"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView android:id="@+id/PlaceDetailsCategory"
+        android:layout_below="@id/PlaceDetailsAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/category"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/PlaceDetailsDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@id/PlaceDetailsCategory"
+        android:text="@string/description"
+        android:layout_marginBottom="40dp"/>
+    
+    <ImageButton
+        android:layout_below="@id/PlaceDetailsDescription"
+        android:id="@+id/PlaceDetailsNavigateToBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="20dp"
+        android:scaleType="fitXY"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_navigation_black_24dp"/>
+
+    <ImageButton
+        android:layout_toRightOf="@id/PlaceDetailsNavigateToBtn"
+        android:layout_below="@id/PlaceDetailsDescription"
+        android:id="@+id/PlaceDetailsEditBtn"
+        android:layout_width="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="35dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_edit_location_black_24dp"
+        android:background="@color/transparent"/>
+
+    <ImageButton
+        android:layout_toRightOf="@id/PlaceDetailsEditBtn"
+        android:layout_below="@id/PlaceDetailsDescription"
+        android:id="@+id/PlaceDetailsDelBtn"
+        android:layout_marginRight="20dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        android:background="@color/transparent"/>
+
+
+
 </RelativeLayout>
