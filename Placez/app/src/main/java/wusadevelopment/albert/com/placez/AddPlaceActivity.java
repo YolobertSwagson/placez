@@ -2,7 +2,6 @@ package wusadevelopment.albert.com.placez;
 
 import android.widget.ImageView;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -19,7 +18,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import org.json.JSONException;
 import org.json.JSONObject;
-=======
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
