@@ -2,6 +2,7 @@ package wusadevelopment.albert.com.placez;
 
 import android.media.Image;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,20 +28,23 @@ public class DetailsActivity extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_details, container, false);
         instance = Controller.getInstance(getActivity());
-        Bundle arguments = this.getArguments();
+        Bundle arguments = getArguments();
         if (arguments != null) {
             position = arguments.getInt("clicked_position");
         } else {
             position = 0;
         }
+        System.out.println(position);
         place = instance.getPlaceList().get(position);
         ImageView image= (ImageView) v.findViewById(R.id.PlaceDetailsImage);
         TextView name = (TextView) v.findViewById(R.id.PlaceDetailsName);
         TextView address = (TextView) v.findViewById(R.id.PlaceDetailsAddress);
         TextView category = (TextView) v.findViewById(R.id.PlaceDetailsCategory);
         TextView description = (TextView) v.findViewById(R.id.PlaceDetailsDescription);
+        if(place.getPicture() != null){
+            image.setImageBitmap(instance.decodeBase64(place.getPicture()));
+        }
 
-        image.setImageBitmap(instance.decodeBase64(place.getPicture()));
         name.setText(place.getName());
         address.setText(place.getAddress());
         //category.setText(place.getCategory());
@@ -54,4 +58,5 @@ public class DetailsActivity extends Fragment {
     public void onStart() {
         super.onStart();
     }
+
 }

@@ -4,28 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wusadevelopment.albert.com.placez.Home"
     tools:showIn="@layout/app_bar_home">
-
     <TextView
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:id="@+id/PlacesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/placez"
         android:textSize="24sp"/>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="2dp"
+    <ScrollView
         android:layout_below="@id/PlacesText"
-        android:id="@+id/PlaceList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/PlaceList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </ScrollView>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
