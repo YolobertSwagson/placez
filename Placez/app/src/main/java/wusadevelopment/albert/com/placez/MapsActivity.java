@@ -1,6 +1,7 @@
 package wusadevelopment.albert.com.placez;
 
 import android.*;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.GeofencingEvent;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,6 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double longitude = 0.0;
     public static double latitude = 0.0;
     public static Marker currentPositionMarker;
+    private List<Marker> markers = new ArrayList<>();
     private LocationService ls;
 
     private Place current;
@@ -67,10 +70,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             current = tmp;
             addGoogleMapsMarker(tmp);
         }
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            double lat = extras.getDouble("lat");
+            double lng = extras.getDouble("lng");
+            for (Marker tmpMarker : markers){
+                if(tmpMarker.getPosition().latitude == lat && tmpMarker.getPosition().longitude == lng){
+                    MapsActivity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
+                    tmpMarker.showInfoWindow();
+                    mMap.click
+                }
+            }
+        }
     }
 
     public void addGoogleMapsMarker(Place place) {
         Marker newMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())));
+        markers.add(newMarker);
     }
 
     public static Bitmap decodeBase64(String input) {
@@ -112,8 +129,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public View getInfoContents(Marker marker) {
             double lat = marker.getPosition().latitude;
             double lng = marker.getPosition().longitude;
-            for (Place tmp : places){
-                if(tmp.getLat() == lat && tmp.getLng() == lng){
+            for (Place tmp : places) {
+                if (tmp.getLat() == lat && tmp.getLng() == lng) {
                     View v = getLayoutInflater().inflate(R.layout.marker_layout, null);
                     if (tmp.getPicture() != null) {
                         Bitmap image = decodeBase64(tmp.getPicture());

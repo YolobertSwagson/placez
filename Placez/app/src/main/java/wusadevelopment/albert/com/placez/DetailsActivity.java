@@ -1,5 +1,8 @@
 package wusadevelopment.albert.com.placez;
 
+import android.content.Context;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +11,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -20,6 +25,7 @@ public class DetailsActivity extends Fragment {
     private Controller instance;
     private int position;
     private Place place;
+    private ImageButton navigateToBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +50,27 @@ public class DetailsActivity extends Fragment {
         if(place.getPicture() != null){
             image.setImageBitmap(instance.decodeBase64(place.getPicture()));
         }
+
+        navigateToBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsNavigateToBtn);
+        navigateToBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+                // Get GPS and network status
+                boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                if(!isNetworkEnabled && !isGPSEnabled){
+                    Toast.makeText(getContext(), "GPS vorher aktivieren!", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent mapsIntent = new Intent(getContext(), MapsActivity.class);
+                    mapsIntent.putExtra("lat", place.getLat());
+                    mapsIntent.putExtra("lng", place.getLng());
+                    startActivity(mapsIntent);
+                }
+            }
+        });
 
         name.setText(place.getName());
         address.setText(place.getAddress());
