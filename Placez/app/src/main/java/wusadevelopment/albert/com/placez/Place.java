@@ -8,11 +8,23 @@ import com.google.android.gms.maps.model.LatLng;
 public class Place {
     private String name;
     private String description;
-    private LatLng coords;
     private String address;
+    private double lat;
+    private double lng;
     private String picture;
     private int category;
     private int id;
+
+    public Place(String name,String description,String address, double lat,double lng, String picture, int category, int id){
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.lat = lat;
+        this.lng =lng;
+        this.picture = picture;
+        this.category = category;
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -62,11 +74,19 @@ public class Place {
         this.picture = picture;
     }
 
-    public void setCoords(LatLng coords) {
-        this.coords = coords;
+    public double getLat() {
+        return lat;
     }
 
-    public LatLng getCoords() {
-        return coords;
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
