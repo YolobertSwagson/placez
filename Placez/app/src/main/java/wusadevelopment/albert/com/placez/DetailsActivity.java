@@ -80,7 +80,7 @@ public class DetailsActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddPlaceActivity.class);
-                intent.putExtra("position",place.getId());
+                intent.putExtra("position",position);
                 startActivity(intent);
             }
         });
