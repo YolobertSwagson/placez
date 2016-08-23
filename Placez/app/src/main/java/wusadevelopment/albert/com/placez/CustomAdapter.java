@@ -22,13 +22,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private LayoutInflater inflater;
     private List<Place> data;
-    private Context context;
     private ClickListener cListener;
     private Controller instance;
 
     public CustomAdapter(Context context, List<Place> data){
 
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.data=data;
         this.instance = Controller.getInstance(context);
