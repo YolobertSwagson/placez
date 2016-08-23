@@ -174,8 +174,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                 String plz = adressList.get(0).getPostalCode();
                                 String locality = adressList.get(0).getLocality();
                                 formatted_address = street + " " + plz + " " + locality;
-                            }else {
-                                System.out.println("Keine zugehörige Adressse gefunden!");
                             }
                             coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
                             if(editPlace != null) {
@@ -186,6 +184,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                     editor.putInt("id", ++id);
                                     editor.commit();
                                 }
+                            }else {
+                                System.out.println("Keine zugehörige Adressse gefunden!");
                             }
 
 
