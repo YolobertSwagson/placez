@@ -128,9 +128,9 @@ public class AddPlaceActivity extends AppCompatActivity {
             AddPlaceImagePreview.setImageBitmap(thumbnail);
             AddPlaceImagePreview.setVisibility(View.VISIBLE);
 
-            //Beispiel für Bitmap zu String und zurück
-            encodedImage = encodeToBase64(thumbnail, Bitmap.CompressFormat.JPEG, 100);
-            Bitmap myBitmapAgain = decodeBase64(encodedImage);
+            //TODO Beispiel für Bitmap zu String und zurück (Muss beim anlegen, bzw. Anzeigen von Places benutzt werden.
+            //encodedImage = encodeToBase64(thumbnail, Bitmap.CompressFormat.JPEG, 100);
+            //Bitmap myBitmapAgain = decodeBase64(encodedImage);
 
         }else if(requestCode == 2){
             picUri = data.getData();
