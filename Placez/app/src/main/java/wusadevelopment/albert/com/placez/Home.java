@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -205,9 +206,12 @@ public class Home extends AppCompatActivity
     public void itemClicked(View view, int position) {
         DetailsActivity fragment = new DetailsActivity();
         Bundle arguments= new Bundle();
-        arguments.putInt("clicked_value",position);
+        arguments.putInt("clicked_position",position);
+        fragment.setArguments(arguments);
+        System.out.println(position);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_right,R.anim.exit_to_right);
         transaction.replace(R.id.fragment_container,fragment);
         transaction.addToBackStack(null);
         transaction.commit();

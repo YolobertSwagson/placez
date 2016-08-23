@@ -7,6 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/white"
+    android:clickable="true"
     tools:context="wusadevelopment.albert.com.placez.DetailsActivity">
 
     <ImageView android:id="@+id/PlaceDetailsImage"

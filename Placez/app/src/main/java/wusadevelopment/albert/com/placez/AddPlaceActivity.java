@@ -107,6 +107,9 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
             confirmbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Intent i = new Intent(getApplicationContext(), Home.class);
+                    startActivity(i);
                     EditText addName = (EditText) findViewById(R.id.AddPlaceEditName);
                     EditText addDescription = (EditText) findViewById(R.id.AddPlaceEditDescription);
                     String name = addName.getText().toString();
@@ -160,9 +163,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                         }
                     }
 
-
-                    Intent i = new Intent(getApplicationContext(), Home.class);
-                    startActivity(i);
                 }
             });
         }
