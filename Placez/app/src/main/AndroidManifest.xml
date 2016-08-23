@@ -48,7 +48,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".InfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".AddPlaceActivity"></activity>
     </application>
