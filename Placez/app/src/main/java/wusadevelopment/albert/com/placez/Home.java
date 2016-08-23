@@ -32,6 +32,7 @@ public class Home extends AppCompatActivity
     private RecyclerView recyclerView;
     private List<Place> pList;
     private Controller instance;
+    public static CustomAdapter pAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,8 @@ public class Home extends AppCompatActivity
         recyclerView.setItemViewCacheSize(5);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        pList = Controller.getInstance(getApplicationContext()).getPlaceList();
-        CustomAdapter pAdapter = new CustomAdapter(this,pList);
+        pList = instance.getPlaceList();
+        pAdapter = new CustomAdapter(this,pList);
         pAdapter.setClickListener(this);
         recyclerView.setAdapter(pAdapter);
         if(instance.getPlaceList() != null && !instance.getPlaceList().isEmpty()  ){

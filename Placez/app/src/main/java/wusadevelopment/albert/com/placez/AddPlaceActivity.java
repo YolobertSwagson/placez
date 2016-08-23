@@ -36,20 +36,20 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
     private LatLng coords;
     private Geocoder geocoder;
     private int category;
-
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    private EditText addName;
+    private EditText addDescription;
     private int id = 0;
-
+    private Integer position = null;
+    private Controller instance;
+    private Place editPlace;
     private ImageButton AddPlaceAddPictureGalleryBtn;
     private ImageButton AddPlaceAddPictureTakePictureBtn;
     private ImageButton AddPlaceMyLocationBtn;
 
     private ImageView AddPlaceImagePreview;
-
     private EditText editAdress;
-
     private Uri picUri;
 
     String encodedImage = null;
@@ -59,39 +59,40 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
 
+        Bundle args = getIntent().getExtras();
+        if(args != null){
+            position = args.getInt("position");
+        }
+
+        instance = Controller.getInstance(getApplicationContext());
+        this.addName = (EditText) findViewById(R.id.AddPlaceEditName);
+        this.addDescription = (EditText) findViewById(R.id.AddPlaceEditDescription);
+        this.editAdress = (EditText) findViewById(R.id.AddPlaceEditAddress);
         this.AddPlaceAddPictureGalleryBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureGalleryBtn);
         this.AddPlaceAddPictureTakePictureBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureTakePictureBtn);
         this.AddPlaceMyLocationBtn = (ImageButton) findViewById(R.id.AddPlaceMyLocationBtn);
-
         this.AddPlaceAddPictureGalleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImage();
             }
         });
-
         this.AddPlaceAddPictureTakePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePicture();
             }
         });
-
         this.AddPlaceMyLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getCurrentPosition();
             }
         });
-
         this.AddPlaceImagePreview = (ImageView) findViewById(R.id.AddPlaceImagePreview);
-        this.editAdress = (EditText) findViewById(R.id.AddPlaceEditAddress);
-
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         editor = pref.edit();
-
         this.id = pref.getInt("id", 0);
-
         Spinner spinner = (Spinner) findViewById(R.id.AddPlaceSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -102,6 +103,21 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
         geocoder = new Geocoder(getApplicationContext());
+
+        if(position != null){
+
+            editPlace = instance.getPlaceList().get(position);
+            this.addName.setText(editPlace.getName());
+            this.editAdress.setText(editPlace.getAddress());
+            this.addDescription.setText(editPlace.getDescription());
+            if(editPlace.getPicture() != null){
+                this.AddPlaceImagePreview.setImageBitmap(instance.decodeBase64(editPlace.getPicture()));
+            }
+            this.category = editPlace.getCategory();
+            spinner.setSelection(category);
+
+        }
+
         ImageButton confirmbtn = (ImageButton) findViewById(R.id.AddPlaceConfirmBtn);
         if (confirmbtn != null) {
             confirmbtn.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +126,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
                     Intent i = new Intent(getApplicationContext(), Home.class);
                     startActivity(i);
-                    EditText addName = (EditText) findViewById(R.id.AddPlaceEditName);
-                    EditText addDescription = (EditText) findViewById(R.id.AddPlaceEditDescription);
                     String name = addName.getText().toString();
                     String address = editAdress.getText().toString();
                     String description = addDescription.getText().toString();
@@ -142,7 +156,11 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                             e.printStackTrace();
                         }
 
-                         if(Controller.getInstance(getApplicationContext()).addPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
+                         if(editPlace != null){
+                             if(instance.editPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,position)){
+                                 System.out.println("Ort bearbeitet!!!");
+                             }
+                         }else if(instance.addPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
                              System.out.println("ORT ERSTELLT!!! mit Koordinaten");
                              editor.putInt("id", ++id);
                              editor.commit();
@@ -152,12 +170,17 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                         try {
                             List<Address> adressList = geocoder.getFromLocationName(address,2);
                             coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
-                            if(Controller.getInstance(getApplicationContext()).addPlace(name,description,address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
-                                System.out.println("ORT ERSTELLT!!! mit Adresse");
-                                editor.putInt("id", ++id);
-                                editor.commit();
-
+                            if(editPlace != null) {
+                                if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                    System.out.println("Ort bearbeitet!!!");
+                                } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
+                                    System.out.println("ORT ERSTELLT!!! mit Adresse");
+                                    editor.putInt("id", ++id);
+                                    editor.commit();
+                                }
                             }
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

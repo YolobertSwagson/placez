@@ -55,7 +55,22 @@ public class Controller {
 
     }
 
-    public void writeToJSON(){}
+    public boolean writeToJSON(){
+        String filename = "places";
+        File file = new File(context.getFilesDir(),filename);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = gson.toJson(placeList);
+            outputStream.write(json.getBytes());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public void readFromJSON(){
 
         String filename = "places";
@@ -77,22 +92,19 @@ public class Controller {
         placeList.add(place);
 
 
+       return writeToJSON();
+    }
 
-        String filename = "places";
-        File file = new File(context.getFilesDir(),filename);
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-            Gson gson = new Gson();
-            String json = gson.toJson(placeList);
-            outputStream.write(json.getBytes());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-       return false;
+    public boolean editPlace(String name, String description,String address, double lat, double lng , String picture, int category, int position){
+        Place tmp = placeList.get(position);
+        tmp.setName(name);
+        tmp.setDescription(description);
+        tmp.setAddress(address);
+        tmp.setLat(lat);
+        tmp.setLng(lng);
+        tmp.setPicture(picture);
+        tmp.setCategory(category);
+        return writeToJSON();
     }
 
 
@@ -102,10 +114,20 @@ public class Controller {
 
 
 
-    public void clearList(){}
+    public void clearList(){
+        placeList.clear();
+        writeToJSON();
+    }
 
     public boolean removePlace(int id){
-        return true;
+        for (Place tmp : placeList) {
+            if (id == tmp.getId()) {
+                placeList.remove(tmp);
+                System.out.println("Ort gelöscht!");
+                break;
+            }
+        }
+        return writeToJSON();
     }
 
     public static Bitmap decodeBase64(String input) {
