@@ -1,27 +1,15 @@
 package wusadevelopment.albert.com.placez;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
-import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
-
 public class DetailsActivity extends Fragment {
 
     private Controller instance;

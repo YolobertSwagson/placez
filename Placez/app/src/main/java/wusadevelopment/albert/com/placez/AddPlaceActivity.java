@@ -22,13 +22,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -52,7 +49,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton AddPlaceAddPictureTakePictureBtn;
     private ImageButton AddPlaceMyLocationBtn;
     private ImageButton AddPlaceCancelBtn;
-
     private ImageView AddPlaceImagePreview;
     private EditText editAdress;
     private Uri picUri;

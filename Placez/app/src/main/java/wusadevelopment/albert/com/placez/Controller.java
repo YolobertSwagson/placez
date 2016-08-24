@@ -3,29 +3,19 @@ package wusadevelopment.albert.com.placez;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import com.google.gson.Gson;
-
 import java.io.IOException;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-
-import wusadevelopment.albert.com.placez.Place;
 
 /**
  * Created by Albert on 21.08.2016.

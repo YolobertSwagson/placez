@@ -1,7 +1,5 @@
 package wusadevelopment.albert.com.placez;
 
-import com.google.android.gms.maps.model.LatLng;
-
 /**
  * Created by Albert on 21.08.2016.
  */
