@@ -92,7 +92,6 @@
             android:layout_below="@+id/AddPlacePicture"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_place_black_24dp"
             android:visibility="gone" />
 
         <ImageButton

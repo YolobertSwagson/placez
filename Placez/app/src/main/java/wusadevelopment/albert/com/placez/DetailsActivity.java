@@ -53,7 +53,7 @@ public class DetailsActivity extends Fragment {
 
         name.setText(place.getName());
         address.setText(place.getAddress());
-        //category.setText(place.getCategory());
+        category.setText(getResources().getStringArray(R.array.categories)[place.getCategory()]);
         description.setText(place.getDescription());
         ImageButton navigateToBtn = (ImageButton) v.findViewById(R.id.PlaceDetailsNavigateToBtn);
         navigateToBtn.setOnClickListener(new View.OnClickListener() {

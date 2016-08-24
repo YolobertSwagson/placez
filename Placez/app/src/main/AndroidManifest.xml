@@ -43,13 +43,25 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:parentActivityName=".Home"
+            android:label="@string/title_activity_maps">
+
+        </activity>
 
         <activity
             android:name=".SettingsActivity"
+            android:parentActivityName=".Home"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".InfoActivity"></activity>
-        <activity android:name=".AddPlaceActivity"></activity>
+        <activity
+            android:name=".InfoActivity"
+            android:parentActivityName=".Home">
+
+        </activity>
+        <activity
+            android:name=".AddPlaceActivity"
+            android:parentActivityName=".Home">
+
+        </activity>
     </application>
 
 </manifest>
