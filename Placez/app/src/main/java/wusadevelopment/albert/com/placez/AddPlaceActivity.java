@@ -123,6 +123,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
             this.addDescription.setText(editPlace.getDescription());
             if (editPlace.getPicture() != null) {
                 this.AddPlaceImagePreview.setImageBitmap(instance.decodeBase64(editPlace.getPicture()));
+                AddPlaceImagePreview.setVisibility(View.VISIBLE);
+                encodedImage = editPlace.getPicture();
             }
             this.category = editPlace.getCategory();
             spinner.setSelection(category);

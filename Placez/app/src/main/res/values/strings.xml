@@ -94,7 +94,7 @@
     <string name="name">Name</string>
     <string name="description">Beschreibung</string>
     <string name="address">Adresse</string>
-    <string name="hintAddress">"Str. Nr, Plz Ort" oder "Lat,Lng" eingeben</string>
+    <string name="hintAddress">Str. Nr, Plz Ort oder Lat,Lng eingeben</string>
     <string name="category">Kategorie</string>
     <string name="picture">Bild</string>
 
