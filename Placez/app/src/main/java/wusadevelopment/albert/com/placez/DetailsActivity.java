@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.media.Image;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -59,19 +60,11 @@ public class DetailsActivity extends Fragment {
         navigateToBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-
-                // Get GPS and network status
-                boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-                if(!isNetworkEnabled && !isGPSEnabled){
-                    Toast.makeText(getContext(), "GPS vorher aktivieren!", Toast.LENGTH_LONG).show();
-                }else{
-                    Intent mapsIntent = new Intent(getContext(), MapsActivity.class);
-                    mapsIntent.putExtra("id", place.getId());
-                    startActivity(mapsIntent);
-                }
+                Intent navIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" +
+                        Math.round(place.getLat() * 100000.0) / 100000.0 +
+                        "," + Math.round(place.getLng() * 100000.0) / 100000.0)
+                );
+                startActivity(navIntent);
             }
         });
 

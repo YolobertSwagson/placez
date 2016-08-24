@@ -10,10 +10,10 @@
     tools:context="wusadevelopment.albert.com.placez.InfoActivity">
 
     <TextView
-        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:gravity="center"
-        android:text="@string/info"/>
+        android:paddingTop="10dp"
+        android:text="@string/info"
+        android:textSize="20sp" />
 </RelativeLayout>

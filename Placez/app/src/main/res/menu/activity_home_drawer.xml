@@ -4,8 +4,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_addPlace"
-            android:icon="@drawable/ic_add_circle_black_24dp"
-            android:title="Place hinzufügen" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/app_name" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_explore_black_24dp"

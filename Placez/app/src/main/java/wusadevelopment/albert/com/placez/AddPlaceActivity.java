@@ -48,6 +48,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton AddPlaceAddPictureGalleryBtn;
     private ImageButton AddPlaceAddPictureTakePictureBtn;
     private ImageButton AddPlaceMyLocationBtn;
+    private ImageButton AddPlaceCancelBtn;
 
     private ImageView AddPlaceImagePreview;
     private EditText editAdress;
@@ -72,6 +73,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         this.AddPlaceAddPictureGalleryBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureGalleryBtn);
         this.AddPlaceAddPictureTakePictureBtn = (ImageButton) findViewById(R.id.AddPlaceAddPictureTakePictureBtn);
         this.AddPlaceMyLocationBtn = (ImageButton) findViewById(R.id.AddPlaceMyLocationBtn);
+        this.AddPlaceCancelBtn = (ImageButton) findViewById(R.id.AddPlaceCancelBtn);
+
         this.AddPlaceAddPictureGalleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +93,14 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                 getCurrentPosition();
             }
         });
+
+        this.AddPlaceCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         this.AddPlaceImagePreview = (ImageView) findViewById(R.id.AddPlaceImagePreview);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         editor = pref.edit();

@@ -11,8 +11,8 @@
     <string name="currentPositionText">Deine Position</string>
     <string name="setLocationText">Bitte Standort aktivieren und erneut versuchen!</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="map">Map</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="map">Karte</string>
 
     <string name="title_activity_maps">Map</string>
 

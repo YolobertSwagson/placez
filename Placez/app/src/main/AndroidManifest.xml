@@ -52,6 +52,7 @@
             android:name=".SettingsActivity"
             android:parentActivityName=".Home"
             android:label="@string/title_activity_settings" />
+
         <activity
             android:name=".InfoActivity"
             android:parentActivityName=".Home">
@@ -62,6 +63,7 @@
             android:parentActivityName=".Home">
 
         </activity>
+
     </application>
 
 </manifest>
