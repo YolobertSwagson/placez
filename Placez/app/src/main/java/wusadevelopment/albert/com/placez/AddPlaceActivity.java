@@ -166,9 +166,15 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                              editor.commit();
                          }
 
-                    }else if(items.size() >= 2) {
+                    }else {
                         try {
-                            List<Address> adressList = geocoder.getFromLocationName(address,2);
+                            List<Address> adressList = geocoder.getFromLocationName(address,1);
+                            if (adressList.get(0) != null) {
+                                String street = adressList.get(0).getAddressLine(0);
+                                String plz = adressList.get(0).getPostalCode();
+                                String locality = adressList.get(0).getLocality();
+                                formatted_address = street + " " + plz + " " + locality;
+                            }
                             coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
                             if(editPlace != null) {
                                 if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
@@ -178,6 +184,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                     editor.putInt("id", ++id);
                                     editor.commit();
                                 }
+                            }else {
+                                System.out.println("Keine zugehörige Adressse gefunden!");
                             }
 
 
