@@ -22,12 +22,16 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 public class AddPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -60,7 +64,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_add_place);
 
         Bundle args = getIntent().getExtras();
-        if(args != null){
+        if (args != null) {
             position = args.getInt("position");
         }
 
@@ -102,15 +106,15 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        geocoder = new Geocoder(getApplicationContext());
+        geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-        if(position != null){
+        if (position != null) {
 
             editPlace = instance.getPlaceList().get(position);
             this.addName.setText(editPlace.getName());
             this.editAdress.setText(editPlace.getAddress());
             this.addDescription.setText(editPlace.getDescription());
-            if(editPlace.getPicture() != null){
+            if (editPlace.getPicture() != null) {
                 this.AddPlaceImagePreview.setImageBitmap(instance.decodeBase64(editPlace.getPicture()));
             }
             this.category = editPlace.getCategory();
@@ -132,8 +136,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
 
                     List<String> items = Arrays.asList(address.split("\\s*,\\s*"));
-                    if(items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")){
-                        try{
+                    if (items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")) {
+                        try {
                             double latitude = Double.parseDouble(items.get(0));
                             double longitude = Double.parseDouble(items.get(1));
                             coords = new LatLng(latitude, longitude);
@@ -156,39 +160,38 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                             e.printStackTrace();
                         }
 
-                         if(editPlace != null){
-                             if(instance.editPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,position)){
-                                 System.out.println("Ort bearbeitet!!!");
-                             }
-                         }else if(instance.addPlace(name,description,formatted_address,coords.latitude,coords.longitude,encodedImage,category,pref.getInt("id", 0))){
-                             System.out.println("ORT ERSTELLT!!! mit Koordinaten");
-                             editor.putInt("id", ++id);
-                             editor.commit();
-                         }
+                        if (editPlace != null) {
+                            if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                System.out.println("Ort bearbeitet!!!");
+                            }
+                        } else if (instance.addPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
+                            System.out.println("ORT ERSTELLT!!! mit Koordinaten");
+                            editor.putInt("id", ++id);
+                            editor.commit();
+                        }
 
-                    }else {
+                    } else {
                         try {
-                            List<Address> adressList = geocoder.getFromLocationName(address,1);
+                            System.out.println(address);
+                            List<Address> adressList = geocoder.getFromLocationName(address, 1);
                             if (adressList.get(0) != null) {
                                 String street = adressList.get(0).getAddressLine(0);
                                 String plz = adressList.get(0).getPostalCode();
                                 String locality = adressList.get(0).getLocality();
                                 formatted_address = street + " " + plz + " " + locality;
-                            }
-                            coords= new LatLng(adressList.get(0).getLatitude(),adressList.get(0).getLongitude());
-                            if(editPlace != null) {
-                                if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
-                                    System.out.println("Ort bearbeitet!!!");
+                                coords = new LatLng(adressList.get(0).getLatitude(), adressList.get(0).getLongitude());
+                                if (editPlace != null) {
+                                    if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                        System.out.println("Ort bearbeitet!!!");
+                                    }
                                 } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
                                     System.out.println("ORT ERSTELLT!!! mit Adresse");
                                     editor.putInt("id", ++id);
                                     editor.commit();
                                 }
-                            }else {
+                            } else {
                                 System.out.println("Keine zugehörige Adressse gefunden!");
                             }
-
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -209,7 +212,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         category = 1;
     }
 
-    protected void getCurrentPosition(){
+    protected void getCurrentPosition() {
         LocationService ls = LocationService.getLocationManager(this);
         ls.initLocationService(this);
         coords = new LatLng(ls.getLatitude(), ls.getLongitude());
