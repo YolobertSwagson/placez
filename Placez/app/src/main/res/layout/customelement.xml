@@ -18,21 +18,20 @@
     <TextView
         android:id="@+id/PlaceName"
         android:textStyle="bold"
-        android:textSize="26sp"
+        android:textSize="22sp"
         android:paddingTop="3dp"
         android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:layout_toRightOf="@id/PlaceImage"
-        android:maxLines="1"
         android:text="@string/placeholderName" />
 
     <TextView
         android:paddingLeft="5dp"
         android:paddingTop="3dp"
         android:id="@+id/PlaceDescription"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/placeholderDescription"

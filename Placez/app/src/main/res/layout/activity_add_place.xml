@@ -22,7 +22,7 @@
             android:inputType="text"
             android:lines="1"
             android:imeOptions="actionDone"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="10dp"
             android:hint="@string/name"
             android:textSize="20sp" />
 
@@ -31,12 +31,14 @@
             android:id="@+id/AddPlaceAddressLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_below="@id/AddPlaceEditName"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/AddPlaceEditAddress"
                 android:layout_width="0dp"
+                android:inputType="textImeMultiLine"
                 android:imeOptions="actionDone"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -60,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/AddPlaceAddressLayout"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/category"
             android:textSize="20sp" />
 
@@ -68,7 +70,8 @@
             android:id="@+id/AddPlaceSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/AddPlaceCategory">
+            android:layout_below="@id/AddPlaceCategory"
+            android:layout_marginBottom="10dp">
 
 
         </Spinner>
@@ -79,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/AddPlaceSpinner"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/picture"
             android:textSize="20sp" />
 
@@ -99,7 +102,7 @@
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/AddPlaceImagePreview"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="20dp"
             android:background="@color/transparent"
             android:scaleType="fitXY"
@@ -111,7 +114,7 @@
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_below="@id/AddPlaceImagePreview"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginRight="20dp"
             android:background="@color/transparent"
             android:scaleType="fitXY"
