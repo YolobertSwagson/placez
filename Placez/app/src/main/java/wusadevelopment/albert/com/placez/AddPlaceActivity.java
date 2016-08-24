@@ -138,76 +138,91 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
             confirmbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Intent i = new Intent(getApplicationContext(), Home.class);
-                    startActivity(i);
                     String name = addName.getText().toString();
                     String address = editAdress.getText().toString();
                     String description = addDescription.getText().toString();
+                    System.out.println("Name: " + name + " Adresse: " + address);
+                    if (name.equals("") && address.equals("")) {
+                        Toast.makeText(getApplicationContext(), R.string.setNameAndAddressError, Toast.LENGTH_LONG).show();
+                    } else if (!name.equals("") && address.equals("")) {
+                        Toast.makeText(getApplicationContext(), R.string.setAddressError, Toast.LENGTH_LONG).show();
+                    } else if (name.equals("") && !address.equals("")) {
+                        Toast.makeText(getApplicationContext(), R.string.setNameError, Toast.LENGTH_LONG).show();
+                    } else {
+                        List<String> items = Arrays.asList(address.split("\\s*,\\s*"));
+                        if (items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")) {
+                            try {
+                                double latitude = Double.parseDouble(items.get(0));
+                                double longitude = Double.parseDouble(items.get(1));
+                                coords = new LatLng(latitude, longitude);
+                            } catch (NumberFormatException e) {
+                                System.out.println("ILLEGAL NUMBER FORMAT");
+                            }
 
+                            try {
+                                if (coords != null) {
+                                    List<Address> adressList = geocoder.getFromLocation(coords.latitude, coords.longitude, 1);
 
-                    List<String> items = Arrays.asList(address.split("\\s*,\\s*"));
-                    if (items.size() == 2 && items.get(0).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$") && items.get(1).matches("^[\\+\\-]{0,1}[0-9]+[\\.\\,]{1}[0-9]+$")) {
-                        try {
-                            double latitude = Double.parseDouble(items.get(0));
-                            double longitude = Double.parseDouble(items.get(1));
-                            coords = new LatLng(latitude, longitude);
-                        } catch (NumberFormatException e) {
-                            System.out.println("ILLEGAL NUMBER FORMAT");
-                        }
+                                    if (adressList.get(0) != null) {
+                                        String street = adressList.get(0).getAddressLine(0);
+                                        String plz = adressList.get(0).getPostalCode();
+                                        String locality = adressList.get(0).getLocality();
+                                        formatted_address = street + " " + plz + " " + locality;
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
-                        try {
-                            if (coords != null) {
-                                List<Address> adressList = geocoder.getFromLocation(coords.latitude, coords.longitude, 1);
+                            if (editPlace != null) {
+                                if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                    System.out.println("Ort bearbeitet!!!");
+                                    Intent i = new Intent(getApplicationContext(), Home.class);
+                                    startActivity(i);
+                                    Toast.makeText(getApplicationContext(), R.string.editedPlace, Toast.LENGTH_LONG).show();
+                                }
+                            } else if (instance.addPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
+                                System.out.println("ORT ERSTELLT!!! mit Koordinaten");
+                                Intent i = new Intent(getApplicationContext(), Home.class);
+                                startActivity(i);
+                                editor.putInt("id", ++id);
+                                editor.commit();
+                                Toast.makeText(getApplicationContext(), R.string.addedPlace, Toast.LENGTH_LONG).show();
+                            }
 
-                                if (adressList.get(0) != null) {
+                        } else {
+                            try {
+                                System.out.println(address);
+                                List<Address> adressList = geocoder.getFromLocationName(address, 1);
+                                if (adressList.size() > 0) {
                                     String street = adressList.get(0).getAddressLine(0);
                                     String plz = adressList.get(0).getPostalCode();
                                     String locality = adressList.get(0).getLocality();
                                     formatted_address = street + " " + plz + " " + locality;
-                                }
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (editPlace != null) {
-                            if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
-                                System.out.println("Ort bearbeitet!!!");
-                            }
-                        } else if (instance.addPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
-                            System.out.println("ORT ERSTELLT!!! mit Koordinaten");
-                            editor.putInt("id", ++id);
-                            editor.commit();
-                        }
-
-                    } else {
-                        try {
-                            System.out.println(address);
-                            List<Address> adressList = geocoder.getFromLocationName(address, 1);
-                            if (adressList.get(0) != null) {
-                                String street = adressList.get(0).getAddressLine(0);
-                                String plz = adressList.get(0).getPostalCode();
-                                String locality = adressList.get(0).getLocality();
-                                formatted_address = street + " " + plz + " " + locality;
-                                coords = new LatLng(adressList.get(0).getLatitude(), adressList.get(0).getLongitude());
-                                if (editPlace != null) {
-                                    if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
-                                        System.out.println("Ort bearbeitet!!!");
+                                    coords = new LatLng(adressList.get(0).getLatitude(), adressList.get(0).getLongitude());
+                                    if (editPlace != null) {
+                                        if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                            System.out.println("Ort bearbeitet!!!");
+                                            Intent i = new Intent(getApplicationContext(), Home.class);
+                                            startActivity(i);
+                                            Toast.makeText(getApplicationContext(), R.string.editedPlace, Toast.LENGTH_LONG).show();
+                                        }
+                                    } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
+                                        System.out.println("ORT ERSTELLT!!! mit Adresse");
+                                        Intent i = new Intent(getApplicationContext(), Home.class);
+                                        startActivity(i);
+                                        editor.putInt("id", ++id);
+                                        editor.commit();
+                                        Toast.makeText(getApplicationContext(), R.string.addedPlace, Toast.LENGTH_LONG).show();
                                     }
-                                } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
-                                    System.out.println("ORT ERSTELLT!!! mit Adresse");
-                                    editor.putInt("id", ++id);
-                                    editor.commit();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), R.string.illegalAdress, Toast.LENGTH_LONG).show();
                                 }
-                            } else {
-                                System.out.println("Keine zugehörige Adressse gefunden!");
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                     }
-
                 }
             });
         }

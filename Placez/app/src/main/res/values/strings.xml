@@ -18,6 +18,14 @@
 
     <string name="title_activity_settings">Settings</string>
 
+    <string name="setNameAndAddressError">Bitte Name und Adresse eintragen</string>
+    <string name="setNameError">Bitte Name eintragen</string>
+    <string name="setAddressError">Bitte Adresse eintragen</string>
+    <string name="illegalAdress">Keine zugehörige Adressse gefunden!</string>
+    <string name="addedPlace">Place hinzugefügt</string>
+    <string name="editedPlace">Place bearbeitet</string>
+    <string name="removedPlace">Place gelöscht</string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

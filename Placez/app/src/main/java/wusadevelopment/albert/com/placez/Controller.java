@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -122,7 +123,7 @@ public class Controller {
         for (Place tmp : placeList) {
             if (id == tmp.getId()) {
                 placeList.remove(tmp);
-                System.out.println("Ort gelöscht!");
+                Toast.makeText(context, R.string.removedPlace, Toast.LENGTH_LONG).show();
                 break;
             }
         }
