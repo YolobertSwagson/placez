@@ -26,6 +26,8 @@
     <string name="editedPlace">Place bearbeitet</string>
     <string name="removedPlace">Place gelöscht</string>
 
+    <string name="removeAllText">Alle Einträge löschen</string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

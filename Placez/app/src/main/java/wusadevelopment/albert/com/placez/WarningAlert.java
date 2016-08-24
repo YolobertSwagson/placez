@@ -16,7 +16,9 @@ public class WarningAlert extends android.support.v4.app.DialogFragment {
         // Use the Builder class for convenient dialog construction
         super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        arg = getArguments().getInt("id");
+        {
+            arg = getArguments().getInt("id");
+        }
         builder.setMessage("Wirklich löschen?")
                 .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -26,9 +28,14 @@ public class WarningAlert extends android.support.v4.app.DialogFragment {
                 }).setPositiveButton("Löschen", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 try {
-                    getActivity().onBackPressed();
-                    Controller.getInstance(getActivity()).removePlace(arg);
-                    Home.pAdapter.notifyDataSetChanged();
+                    if (arg == -1) {
+                        Controller.getInstance(getActivity()).clearList();
+                        Home.pAdapter.notifyDataSetChanged();
+                    } else {
+                        getActivity().onBackPressed();
+                        Controller.getInstance(getActivity()).removePlace(arg);
+                        Home.pAdapter.notifyDataSetChanged();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

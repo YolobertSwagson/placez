@@ -162,7 +162,6 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                             try {
                                 if (coords != null) {
                                     List<Address> adressList = geocoder.getFromLocation(coords.latitude, coords.longitude, 1);
-
                                     if (adressList.get(0) != null) {
                                         String street = adressList.get(0).getAddressLine(0);
                                         String plz = adressList.get(0).getPostalCode();
@@ -199,22 +198,22 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
                                     String plz = adressList.get(0).getPostalCode();
                                     String locality = adressList.get(0).getLocality();
                                     formatted_address = street + " " + plz + " " + locality;
-                                    coords = new LatLng(adressList.get(0).getLatitude(), adressList.get(0).getLongitude());
-                                    if (editPlace != null) {
-                                        if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
-                                            System.out.println("Ort bearbeitet!!!");
-                                            Intent i = new Intent(getApplicationContext(), Home.class);
-                                            startActivity(i);
-                                            Toast.makeText(getApplicationContext(), R.string.editedPlace, Toast.LENGTH_LONG).show();
-                                        }
-                                    } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
-                                        System.out.println("ORT ERSTELLT!!! mit Adresse");
+                                }
+                                coords = new LatLng(adressList.get(0).getLatitude(), adressList.get(0).getLongitude());
+                                if (editPlace != null) {
+                                    if (instance.editPlace(name, description, formatted_address, coords.latitude, coords.longitude, encodedImage, category, position)) {
+                                        System.out.println("Ort bearbeitet!!!");
                                         Intent i = new Intent(getApplicationContext(), Home.class);
                                         startActivity(i);
-                                        editor.putInt("id", ++id);
-                                        editor.commit();
-                                        Toast.makeText(getApplicationContext(), R.string.addedPlace, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), R.string.editedPlace, Toast.LENGTH_LONG).show();
                                     }
+                                } else if (Controller.getInstance(getApplicationContext()).addPlace(name, description, address, coords.latitude, coords.longitude, encodedImage, category, pref.getInt("id", 0))) {
+                                    System.out.println("ORT ERSTELLT!!! mit Adresse");
+                                    Intent i = new Intent(getApplicationContext(), Home.class);
+                                    startActivity(i);
+                                    editor.putInt("id", ++id);
+                                    editor.commit();
+                                    Toast.makeText(getApplicationContext(), R.string.addedPlace, Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), R.string.illegalAdress, Toast.LENGTH_LONG).show();
                                 }
@@ -235,7 +234,7 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        category = 1;
+        category = 0;
     }
 
     protected void getCurrentPosition() {
@@ -340,7 +339,8 @@ public class AddPlaceActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat,
+                                        int quality) {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
